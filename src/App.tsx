@@ -10,6 +10,7 @@ function App() {
     liff
       .init({
         liffId: import.meta.env.VITE_LIFF_ID,
+        withLoginOnExternalBrowser: true,
       })
       .then(async () => {
         const profile = await liff.getProfile();
