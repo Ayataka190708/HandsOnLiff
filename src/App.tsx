@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import liff from "@line/liff";
+import { LiffMockPlugin } from '@line/liff-mock';
+
 import "./App.css";
 
 function App() {
@@ -7,10 +9,14 @@ function App() {
   const [error, setError] = useState("");
 
   useEffect(() => {
+    const isDev = process.env.NODE_ENV = "development"
+
     liff
       .init({
         liffId: import.meta.env.VITE_LIFF_ID,
         withLoginOnExternalBrowser: true,
+        //@ts-ignore
+        mock:isDev
       })
       .then(async () => {
         const profile = await liff.getProfile();
