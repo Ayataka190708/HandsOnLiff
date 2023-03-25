@@ -9,7 +9,11 @@ function App() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const isDev = process.env.NODE_ENV = "development"
+
+   
+    const isDev = process.env.NODE_ENV === "development"
+
+    liff.use(new LiffMockPlugin())
 
     liff
       .init({
@@ -19,6 +23,7 @@ function App() {
         mock:isDev
       })
       .then(async () => {
+        if (!liff.isInClient()) liff.login();
         const profile = await liff.getProfile();
         setMessage(`Hello, ${profile.displayName}!`);
       })
